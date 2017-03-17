@@ -1,0 +1,43 @@
+<div class="page-container">
+	<app-menu></app-menu>
+	<div class="left-content">
+		<div class="inner-content">
+			<div class="outter-wp">
+				<div class="sub-heard-part">
+					<ol class="breadcrumb m-b-0">
+						<li><a>{{ title }}</a></li>
+					</ol>
+				</div>
+				<div class="grid-1">
+					<div class="form-body" *ngIf="!edit">
+						<form class="form-horizontal" *ngIf="mySchema !== null">
+							<schema-form [schema]="mySchema" [model]="myModel" [actions]="myActions"></schema-form>
+							<button *ngIf="prams['collection'] == 'Costing.details'" id="recalculate" class="btn btn-default">ReCalculate</button>
+						</form>
+					</div>
+					<div *ngIf="edit">
+						<div class="graph-form">
+							<div class="form-body">
+								<form>
+									<div class="form-group">
+										<label for="module">Module</label>
+										<input type="text" class="form-control" id="module" [(ngModel)]="module" name="module">
+									</div>
+									<div id="editor" style="height:40em;border:1px;"></div>
+									<div class="form-group">
+										<button *ngIf="!script" type="submit" class="btn btn-default" (click)="saveform()">Submit</button>
+										<button *ngIf="script" type="submit" class="btn btn-default" (click)="saveScript()">Submit</button>
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<ng2-toasty></ng2-toasty>
+</div>
+<div class="loader">
+	<div class="spinner"></div>
+</div>

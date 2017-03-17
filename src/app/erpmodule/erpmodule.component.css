@@ -1,0 +1,9 @@
+thead {
+    background-color: #e2e1e1;
+}
+input.goto {
+    width: 5.5em;
+}
+.goto {
+    float: left;
+}

@@ -1,0 +1,11 @@
+div.down {
+    text-align: center;
+}
+div.down a img {
+    width: 40%;
+    height: auto;
+}
+a:hover {
+    text-decoration: none;
+    cursor: pointer;
+}

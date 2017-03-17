@@ -1,0 +1,159 @@
+<div class="page-container">
+	<app-menu></app-menu>
+	<div class="left-content">
+		<div class="inner-content">
+			<div class="outter-wp">
+				<div class="sub-heard-part">
+					<ol class="breadcrumb m-b-0">
+						<li><a>{{ title }}</a></li>
+						<li class="active">{{ subtitle }}</li>
+					</ol>
+				</div>
+				<div class="forms-main">
+					<!--<h3 class="inner-tittle two">Inline Form </h3>-->
+					<div class="grid-1">
+						<div class="form-body">
+							<div data-example-id="simple-form-inline">
+								<form class="form-inline">
+									<div class="form-group">
+										<input type="number" class="form-control goto" name="goto" #goto (keyup)="0" value="{{ currentPage }}" min="1" max="{{ max }}" />
+									</div>
+									<div class="form-group">
+										<select multiple="" name="cols" style="width:100%;">
+											<option *ngFor="let item of cols">{{ item }}</option>
+										</select>
+									</div>
+									<button type="button" class="btn btn-default goto" [disabled]="goto.value > max"><i class="fa fa-chevron-right" aria-hidden="true"></i></button>
+									<a *ngIf="!(title == 'modules' && (subtitle == 'forms' || subtitle == 'scripts'))" class="btn btn-default" routerLink="/new/add/{{ title }}.{{ subtitle }}" routerLinkActive="active">Add New</a>
+									<a *ngIf="title == 'modules' && subtitle == 'forms'" class="btn btn-default" routerLink="/new/editor/{{ title }}.{{ subtitle }}" routerLinkActive="active">Add New</a>
+									<a *ngIf="title == 'modules' && subtitle == 'scripts'" class="btn btn-default" routerLink="/script/editor/{{ title }}.{{ subtitle }}/" routerLinkActive="active">Add New</a>
+									<a *ngIf="title == 'users' && subtitle == 'info'" class="btn btn-default" routerLink="/erp/{{ title }}/roles" routerLinkActive="active">Roles</a>
+									<div class="form-group">
+										<input type="text" class="form-control search" name="search" placeholder="Search" />
+									</div>
+									<a *ngIf="!(title == 'modules' && (subtitle == 'forms' || subtitle == 'scripts'))" class="btn purple" href="http://138.197.220.205:8081?module={{ title }}.{{ subtitle }}" target="_blank">Report</a>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!--</div>-->
+				<div class="graph-visual tables-main">
+					<!--<h3 class="inner-tittle two">Responsive Table </h3>-->
+					<div class="graph">
+						<div class="tables">
+							<table class="table table-bordered">
+								<thead>
+									<tr>
+										<th *ngFor="let head of thead">
+											{{ head }}
+										</th>
+										<th></th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr *ngFor="let item of table; let i = index">
+										<td *ngFor="let head of thead">
+											{{ item[head] }}
+										</td>
+										<td *ngIf="item">
+											<a class="btn green" style="cursor:pointer" (click)="show(item._id, i)">View</a>
+											<a *ngIf="!(title == 'modules' && (subtitle == 'forms' || subtitle == 'scripts'))" class="btn blue" routerLink="/erp/edit/{{ collection }}/{{ item._id }}" routerLinkActive="active">Edit</a>
+											<a *ngIf="title == 'modules' && subtitle == 'forms'" class="btn blue" routerLink="/erp/editor/{{ collection }}/{{ item._id }}" routerLinkActive="active">Edit</a>
+											<a *ngIf="title == 'modules' && subtitle == 'scripts'" class="btn blue" routerLink="/script/editor/{{ collection }}/{{ item._id }}" routerLinkActive="active">Edit</a>
+											<a *ngIf="!(title == 'modules' && (subtitle == 'forms' || subtitle == 'scripts'))" class="btn orange" routerLink="/erp/edit/{{ collection }}/{{ item._id }}/copy" routerLinkActive="active">Copy</a>
+											<a class="btn red" style="cursor:pointer" (click)="delete(item._id, i)">Delete</a>
+											<a *ngIf="title == 'modules' && subtitle == 'forms'" class="btn yellow" routerLink="/admin/{{ item.module }}" routerLinkActive="active">FormBuilder</a>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!--<h3>
+  {{ title }}
+</h3>
+
+<h5>
+  {{ subtitle }}
+</h5>
+<div class="form-group">
+	<label for="goto" class="goto">Goto</label>
+	<input type="number" class="form-control goto" id="goto" name="goto" #goto (keyup)="0" value="{{ currentPage }}" min="1" max="{{ max }}" />
+	<button type="button" class="btn btn-default goto" [disabled] = "goto.value > max"><i class="fa fa-chevron-right" aria-hidden="true"></i></button>
+</div>
+<a class="btn btn-default" routerLink="/new/add/{{ title }}.{{ subtitle }}" routerLinkActive="active">Add New</a>
+<table border="1" class="table">
+	<thead>
+		<tr>
+			<th *ngFor="let head of thead">
+				{{ head }}
+			</th>
+			<th *ngIf="thead">
+				Edit/Delete
+			</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr *ngFor="let item of table; let i = index">
+			<td *ngFor="let head of thead">
+				{{ item[head] }}
+			</td>
+			<td *ngIf="item">
+				<a class="btn btn-primary" routerLink="/erp/edit/{{ collection }}/{{ item._id }}" routerLinkActive="active">Edit</a>
+				<a class="btn btn-danger" style="cursor:pointer" (click)="delete(item._id, i)">Delete</a>
+			</td>
+		</tr>
+	</tbody>
+</table>-->
+
+		<nav aria-label="Page navigation" class="text-center">
+			<ul class="pagination"></ul>
+		</nav>
+
+		<ng2-toasty></ng2-toasty>
+		<div style="height:3em;"></div>
+	</div>
+</div>
+
+<div class="loader">
+	<div class="spinner"></div>
+</div>
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close second" data-dismiss="modal" aria-hidden="true">×</button>
+				<h2 class="modal-title">{{ title }} / {{ subtitle }}</h2>
+			</div>
+			<div class="modal-body">
+				<div class="main-grid3">
+					<div class="p-20">
+						<div class="about-info-p" *ngFor="let item of view[0]">
+							<strong>{{ item[0] }}</strong><br>
+							<p *ngIf="!isObject(item[1])" class="text-muted">{{ item[1] }}</p>
+							<div *ngIf="isObject(item[1]) && isChildObj(item[1])">
+								<div *ngFor="let itm of item[1]">
+									<div *ngFor="let it of itm | mapToIterable">
+										&nbsp;&nbsp;&nbsp;&nbsp;
+										<strong>{{ it.key }}</strong>
+										<br>&nbsp;&nbsp;&nbsp;&nbsp;
+										<span class="text-muted">{{ it.value }}</span>
+									</div>
+									<br>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+			</div>
+		</div>
+	</div>
+</div>

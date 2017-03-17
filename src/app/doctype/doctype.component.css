@@ -1,0 +1,27 @@
+/*button {
+  position: relative;
+  padding: 10px 40px;
+  margin: 0px 10px 10px 0px;
+  float: left;
+  border-radius: 10px;
+  font-family: 'Pacifico', cursive;
+  font-size: 25px;
+  color: #FFF;
+  text-decoration: none;	
+  background-color: #d4d4d4;
+  border-bottom: 5px solid #7d7d7d;
+  text-shadow: 0px -2px #7d7d7d;
+  transition: all 0.1s;
+  -webkit-transition: all 0.1s;
+}
+
+button:active {
+  transform: translate(0px,5px);
+  -webkit-transform: translate(0px,5px);
+  border-bottom: 1px solid;
+}*/
+
+.ng-invalid {
+    border-left-width: 4px;
+    border-left-color: red;
+}

@@ -1,0 +1,6 @@
+.ng-invalid {
+    box-shadow: 0 0 3px red;
+}
+.ng-valid {
+    box-shadow: 0 0 3px green;
+}

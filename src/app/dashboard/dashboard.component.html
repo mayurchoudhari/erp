@@ -1,0 +1,39 @@
+<div class="page-container">
+	<!--<button class="btn btn-default" (click)="addModule()">Add Module</button>-->
+	<!--<ul>
+    <li *ngFor="let item of data; let i = index">
+      <a *ngIf="!item.sub" routerLink="/erp/{{ item.name }}/{{ item.part }}" routerLinkActive="active">{{ item.name }}</a>
+      <a *ngIf="!item.sub && item.name !== 'users'" routerLink="/admin/{{ item.name }}/{{ item.part }}" routerLinkActive="active">Edit</a>
+      <a *ngIf="item.sub" (mouseover)="doctypes(item.name, i)" style="cursor:pointer">{{ item.name }}</a>
+    </li>
+</ul>-->
+	<app-menu></app-menu>
+</div>
+<!--<div class="modal" id="child">
+      <div class="modal-content">
+          <ul>
+              <li *ngFor="let sub of subs">
+                <a routerLink="/erp/{{ parent }}/{{ sub }}" routerLinkActive="active">{{ sub }}</a>
+                <a routerLink="/admin/{{ parent }}/{{ sub }}" routerLinkActive="active">Edit</a>
+              </li>
+          </ul>
+          <button class="btn btn-default close" type="button" onclick="jQuery('div.modal').hide();">X</button>
+      </div>
+</div>-->
+<div class="loader">
+	<div class="spinner"></div>
+</div>
+<div class="modal" id="new">
+	<div class="modal-content">
+		<label for="name">Module Name</label>
+		<input type="text" name="name" id="name" placeholder="Module Name"><br>
+		<label for="ischild">Is Child</label>
+		<input type="checkbox" name="ischild" [(ngModel)]="ischild" value="false"><br>
+		<label *ngIf="ischild" for="parent">Parent</label>
+		<select *ngIf="ischild" id="parent">
+            <option *ngFor="let item of data" id="{{item._id}}" value="{{item.name}}">{{item.name}}</option>
+        </select>
+		<button type="submit" (click)="newModule()">Submit</button>
+		<button class="btn btn-default close" type="button" onclick="jQuery('div.modal').hide();">X</button>
+	</div>
+</div>

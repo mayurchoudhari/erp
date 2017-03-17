@@ -1,0 +1,195 @@
+<div class="page-container">
+<app-menu></app-menu>
+<div class="left-content">
+
+<div class="row" style="width:100%">
+	<div class="col-sm-6">
+		<div class="panel panel-success">
+			<div class="panel-heading">Available to drag</div>
+			<div class="panel-body">
+				<div class="panel panel-default" dnd-draggable [dragEnabled]="true"
+					[dragData]="{id:'string'}">
+					<!--<div class="panel-body">-->
+						<div>String</div>
+						<!--<div>{{transferData | json}}</div>-->
+					<!--</div>-->
+				</div>
+				<div class="panel panel-default" dnd-draggable [dragEnabled]="true"
+					[dragData]="{id:'number'}">
+					<!--<div class="panel-body">-->
+						<div>Number</div>
+						<!--<div>{{transferData | json}}</div>-->
+					<!--</div>-->
+				</div>
+				<div class="panel panel-default" dnd-draggable [dragEnabled]="true"
+					[dragData]="{id:'link'}">
+					<!--<div class="panel-body">-->
+						<div>Link</div>
+						<!--<div>{{transferData | json}}</div>-->
+					<!--</div>-->
+				</div>
+				<div class="panel panel-default" dnd-draggable [dragEnabled]="true"
+					[dragData]="{id:'data'}">
+					<!--<div class="panel-body">-->
+						<div>Data</div>
+						<!--<div>{{transferData | json}}</div>-->
+					<!--</div>-->
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="col-sm-6">
+		<div dnd-droppable class="panel panel-info"
+			(onDropSuccess)="transferDataSuccess($event)">
+			<div class="panel-heading">
+				Place to drop (Items:{{receivedData.length}})
+				<button class="btn btn-primary" style="position:absolute;top:0.3em;right:2em">Confirm</button>
+			</div>
+			<div class="panel-body">
+				<div *ngFor="let item of receivedData[0]" class="panel panel-default">
+					<!--<div class="panel-body">-->
+					<b>Id: {{ item[0] }}</b><br>
+					<span *ngFor="let sub of item[1] | mapToIterable"><b>{{ sub.key }} :</b> {{ sub.value }}<br></span>
+					<!--</div>-->
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="loader">
+  <div class="spinner"></div>
+</div>
+
+<div class="modal fade" id="string" tabindex="-1" role="dialog" aria-labelledby="stringLabel" aria-hidden="true" style="display: none;">
+<!--<div class="modal" id="string">-->
+	<div class="modal-dialog">
+	  <div class="modal-content">
+		  <div class="modal-header">
+			  <button type="button" class="close second" data-dismiss="modal" aria-hidden="true">×</button>
+			  <h2 class="modal-title">String Field</h2>
+		  </div>
+		  <div class="modal-body">
+			  <div id="myForm" class="form-body">
+					<div class="form-group">
+						<select class="form-control1" [(ngModel)]="widget" (change)="options($event)">
+							<option value="string" selected>Text</option>
+							<option value="date">Date</option>
+							<option value="password">Password</option>
+							<option value="select">Select</option>
+							<option value="email">Email</option>
+							<option value="tel">Tel</option>
+							<option value="checkbox">Checkbox</option>
+						</select>
+					</div>
+					<div class="form-group">
+						<label for="id">Id</label>
+						<input class="form-control" type="text" id="id" [(ngModel)]="id" required pattern="^[a-z]{1,30}$" (keyup)="regexGenerator()">
+					</div>
+					<div class="form-group">
+						<label for="title">Title</label>
+						<input class="form-control" type="text" id="title" [(ngModel)]="title" (keyup)="regexGenerator()" pattern="^[a-zA-Z0-9 ]{1,30}$">
+					</div>
+					<div *ngIf="widget == 'checkbox'" class="form-group">
+						<label for="default">Default</label>
+						<select class="form-control1" id="default" [(ngModel)]="default" (change)="regexGenerator()">
+							<option value="true">True</option>
+							<option value="false">False</option>
+						</select>
+					</div>
+					<div class="checkbox">
+						<label>
+							<input type="checkbox" [(ngModel)]="req" (change)="regexGenerator()">
+							Required
+						</label>
+					</div>
+					<div *ngIf="!(widget == 'select' || widget == 'date' || widget == 'checkbox')" class="form-group">
+						<label for="minlen">Min Length</label>
+						<input class="form-control" type="number" id="minlen" [(ngModel)]="minLen" pattern="^[0-9]+$" (keyup)="regexGenerator()" [disabled]="mindisable">
+					</div>
+					<div *ngIf="!(widget == 'select' || widget == 'date' || widget == 'checkbox')" class="form-group">
+						<label for="maxlen">Max Length</label>
+						<input class="form-control" type="number" id="maxlen" [(ngModel)]="maxLen" pattern="^[0-9]+$" (keyup)="regexGenerator()" [disabled]="maxdisable">
+					</div>
+					<div *ngIf="widget == 'select'" class="form-group">
+						<label for="selectopts">Options:</label>
+						<textarea class="form-control" rows="5" id="selectopts" [(ngModel)]="selectopts" required></textarea>
+					</div>
+					<div *ngIf="!(widget == 'select' || widget == 'date' || widget == 'checkbox')" class="form-group">
+						<label for="regex">Custom</label>
+						<input class="form-control" type="text" id="regex" [(ngModel)]="regex" [disabled]="regexdisable">
+					</div>
+			  </div>
+		  </div>
+		  <div class="modal-footer">
+			  <p>{{ msg }}</p>
+			  <button class="btn btn-success" (click)="save()" >Save</button>
+			  <!--<button class="btn btn-default close" type="button" data-dismiss="modal">X</button>-->
+		  </div>
+	  </div>
+	</div>
+<!--</div>-->
+</div>
+
+<div class="modal" id="number">
+	  <div class="modal-content">
+		  <h2>Number Field</h2>
+		  <div id="myForm2" class="form-group">
+			<select class="form-control" [(ngModel)]="widget" (change)="options($event)">
+				<option value="number" selected>Integer</option>
+				<option value="float">Float</option>
+				<option value="password">Password</option>
+				<option value="select">Select</option>
+				<option value="email">Email</option>
+				<option value="tel">Tel</option>
+				<option value="checkbox">Checkbox</option>
+			</select>
+			<label for="id">Id</label>
+			<input class="form-control" type="text" id="id" [(ngModel)]="id" required pattern="^[a-z]+$" (keyup)="regexGenerator()">
+			<label for="title">Title</label>
+			<input class="form-control" type="text" id="title" [(ngModel)]="title" (keyup)="regexGenerator()" pattern="^[a-zA-Z0-9 ]+$">
+			<label *ngIf="widget == 'checkbox'" for="default">Default</label>
+			<select *ngIf="widget == 'checkbox'" class="form-control" id="default" [(ngModel)]="default" (change)="regexGenerator()">
+				<option value="true">True</option>
+				<option value="false">False</option>
+			</select>
+			<div class="checkbox"><label><input type="checkbox" [(ngModel)]="req" (change)="regexGenerator()">Required</label></div>
+			<label *ngIf="!(widget == 'select' || widget == 'date' || widget == 'checkbox')" for="minlen">Min Length</label>
+			<input *ngIf="!(widget == 'select' || widget == 'date' || widget == 'checkbox')" class="form-control" type="number" id="minlen" [(ngModel)]="minLen" pattern="^[0-9]+$" (keyup)="regexGenerator()" [disabled]="mindisable">
+			<label *ngIf="!(widget == 'select' || widget == 'date' || widget == 'checkbox')" for="maxlen">Max Length</label>
+			<input *ngIf="!(widget == 'select' || widget == 'date' || widget == 'checkbox')" class="form-control" type="number" id="maxlen" [(ngModel)]="maxLen" pattern="^[0-9]+$" (keyup)="regexGenerator()" [disabled]="maxdisable">
+			<label *ngIf="widget == 'select'" for="selectopts">Options:</label>
+			<textarea *ngIf="widget == 'select'" class="form-control" rows="5" id="selectopts" [(ngModel)]="selectopts" required></textarea>
+			<label *ngIf="!(widget == 'select' || widget == 'date' || widget == 'checkbox')" for="regex">Custom</label>
+			<input *ngIf="!(widget == 'select' || widget == 'date' || widget == 'checkbox')" class="form-control" type="text" id="regex" [(ngModel)]="regex" [disabled]="regexdisable">
+			<p>{{ msg }}</p>
+			<button class="btn btn-success" (click)="save()" >Save</button>
+			<button class="btn btn-default close" type="button" onclick="jQuery('div.modal').hide();">X</button>
+		  </div>
+	  </div>
+</div>
+
+<div class="modal" id="link">
+	  <div class="modal-content">
+		  <h2>Link Field</h2>
+		  <div id="myForm3" class="form-group">
+			<label for="id">Id</label>
+			<input class="form-control" type="text" id="id" [(ngModel)]="id" required pattern="^[a-z]+$" >
+			<label for="title">Title</label>
+			<input class="form-control" type="text" id="title" [(ngModel)]="title" pattern="^[a-zA-Z0-9 ]+$">
+			<label for="doc">Document</label>
+			<input class="form-control" type="text" id="doc" [(ngModel)]="doc" (keyup)="getColumn()" pattern="^[a-zA-Z0-9.]+$" required>
+			<label *ngIf="col" for="column">Column</label>
+			<select *ngIf="col" class="form-control" id="column" [(ngModel)]="column" required>
+				<option *ngFor="let item of optons" value="{{ item }}">{{ item }}</option>
+			</select>
+			<div class="checkbox"><label><input type="checkbox" [(ngModel)]="req" >Required</label></div>
+			<p>{{ msg }}</p>
+			<button class="btn btn-success" (click)="savelink()" >Save</button>
+			<button class="btn btn-default close" type="button" onclick="jQuery('div.modal').hide();">X</button>
+		  </div>
+	  </div>
+</div>
+
+</div>
+</div>

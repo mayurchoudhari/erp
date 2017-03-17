@@ -1,0 +1,52 @@
+<!--<div class="container">
+    <h1>Login Form</h1>
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input type="email" class="form-control" id="email" required
+          formControlName="email" pattern="^[^@]+@[^@]+\.[^@]+$" autofocus>
+      </div>
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" class="form-control" id="password" required
+           formControlName="password" >
+      </div>
+      <button type="submit" class="btn btn-default" [disabled]="!loginForm.valid">Submit</button>
+    </form>
+</div>-->
+<div class="error_page">
+	<div class="error-top">
+		<h2 class="inner-tittle page">Pooja Clothing</h2>
+		<div class="login">
+			<h3 class="inner-tittle t-inner">Login</h3>
+			<div class="buttons login">
+				<!--<ul>
+          <li><a href="#" class="hvr-sweep-to-right">Facebook</a></li>
+          <li class="lost"><a href="#" class="hvr-sweep-to-left">Twitter</a> </li>
+          <div class="clearfix"></div>
+        </ul>-->
+			</div>
+			<form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+				<input type="text" class="text" value="E-mail address" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'E-mail address';}" id="email" formControlName="email" pattern="^[^@]+@[^@]+\.[^@]+$">
+				<input type="password" value="Password" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Password';}" id="password" formControlName="password">
+				<div class="submit"><input type="submit" [disabled]="!loginForm.valid" value="Login"></div>
+				<div class="clearfix"></div>
+				<div class="new">
+					<p><label class="checkbox11"><input type="checkbox" name="checkbox"><i> </i>Forgot Password ?</label></p>
+					<!--<p class="sign">Do not have an account ? <a href="sign.html">Sign Up</a></p>-->
+					<div class="clearfix"></div>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+<div class="loader">
+	<div class="spinner"></div>
+</div>
+<ng2-toasty></ng2-toasty>
+<div class="modal">
+	<div class="modal-content">
+		<p>{{ msg }}</p>
+		<button class="btn btn-default close" type="button" onclick="jQuery('div.modal').hide();">X</button>
+	</div>
+</div>
